@@ -16,7 +16,9 @@ jobs:
       ARDUINO_USER_DIR: ${{github.workspace}}/arduino_user
     strategy:
       matrix:
-        example: ["ai_vox_board/ai_vox_board", "ai-vox3/ai-vox3"]
+        example: ["ai_vox_board/ai_vox_engine_led_mcp", "ai_vox_board/ai_vox_engine_motordriver_mcp","ai_vox_board/ai_vox_engine_servo_mcp","ai_vox_board/ai_vox_engine_ws2812b_mcp",
+                  "ai_vox3/ai_vox_engine_dht11_servo_led_mcp","ai_vox3/ai_vox_engine_led_mcp","ai_vox3/ai_vox_engine_motor_fan_mcp","ai_vox3/ai_vox_engine_motordriver_mcp",
+                  "ai_vox3/ai_vox_engine_servo_mcp","ai_vox3/ai_vox_engine_us04_dht11_photosensitive_mcp","ai_vox3/ai_vox_engine_ws2812b_mcp"]
         core_version: ["3.2.0"]
         fqbn: ["esp32:esp32:esp32s3"]
 
@@ -39,17 +41,10 @@ jobs:
       - name: install lib lvgl@9.2.2
         run: |
           ${ARDUINO_CLI_DIR}/arduino-cli --config-dir ${ARDUINO_CLI_CONFIG_DIR} lib install "lvgl@9.2.2"
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          path: ai_vox
-      - name: zip
+      - name: Install AI_VOX Library from GitHub
         run: |
-          zip -r ai_vox.zip ai_vox
-      - name: install lib dependencies
-        run: |
-          ${ARDUINO_CLI_DIR}/arduino-cli --config-dir ${ARDUINO_CLI_CONFIG_DIR} lib install --zip-path ai_vox.zip
+          ${ARDUINO_CLI_DIR}/arduino-cli --config-dir ${ARDUINO_CLI_CONFIG_DIR} lib install --git-url https://github.com/nulllaborg/ai_vox
       - name: compile
         run: |
-          echo "compile ${ARDUINO_USER_DIR}/libraries/${LIB_DIR_NAME}/examples/${{matrix.example}}"
+          echo "compile ${ARDUINO_USER_DIR}/libraries/${LIB_DIR_NAME}/${{matrix.example}}"
           ${ARDUINO_CLI_DIR}/arduino-cli --config-dir ${ARDUINO_CLI_CONFIG_DIR} compile --fqbn ${{matrix.fqbn}} "${ARDUINO_USER_DIR}/libraries/${LIB_DIR_NAME}/examples/${{matrix.example}}" -j 0 --warnings all --board-options "FlashSize=16M" --board-options "PartitionScheme=custom" --board-options "PSRAM=opi" --build-property "build.extra_flags=-Wall -Werror" --log --clean -v
