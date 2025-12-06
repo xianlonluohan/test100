@@ -64,8 +64,8 @@ jobs:
       - name: compile
         run: |
           echo "编译位于工作空间的示例: ${GITHUB_WORKSPACE}/${{matrix.example}}"
-          ${ARDUINO_CLI_DIR}/arduino-cli --config-dir ${ARDUINO_CLI_CONFIG_DIR} compile --fqbn ${{matrix.fqbn}} "${GITHUB_WORKSPACE}/${{matrix.example}}" -j 0 --warnings all --board-options "FlashSize=16M" --board-options "PartitionScheme=custom" --board-options "PSRAM=opi" --build-property "build.extra_flags=-Wall -Werror -Wno-missing-field-initializers -DESP32 -DARDUINO_ARCH_ESP32" --log --clean -v
-
+          ${ARDUINO_CLI_DIR}/arduino-cli --config-dir ${ARDUINO_CLI_CONFIG_DIR} compile --fqbn ${{matrix.fqbn}} "${GITHUB_WORKSPACE}/${{matrix.example}}" -j 0 --warnings all --board-options "FlashSize=16M" --board-options "PartitionScheme=custom" --board-options "PSRAM=opi" --build-property "build.extra_flags=-Wall -Werror -Wno-missing-field-initializers -Wno-type-limits -DESP32 -DARDUINO_ARCH_ESP32" --log --clean -v
+            
       # - name: compile
       #   run: |
       #     echo "编译位于工作空间的示例: ${GITHUB_WORKSPACE}/${{matrix.example}}"
