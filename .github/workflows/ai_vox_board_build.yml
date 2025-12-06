@@ -23,6 +23,11 @@ jobs:
         fqbn: ["esp32:esp32:esp32s3"]
 
     steps:
+      # 第一步：先检出代码（确保不会覆盖后续安装的工具）
+      - name: Checkout examples repository
+        uses: actions/checkout@v4
+      
+      # 第二步：安装Arduino CLI
       - name: download arduino cli
         run: curl -L -o arduino-cli.tar.gz https://github.com/arduino/arduino-cli/releases/download/v1.2.0/arduino-cli_1.2.0_Linux_64bit.tar.gz
       - name: install arduino cli
@@ -31,6 +36,8 @@ jobs:
           tar -zxvf arduino-cli.tar.gz -C ${ARDUINO_CLI_DIR}
       - name: test arduino cli
         run: ${ARDUINO_CLI_DIR}/arduino-cli -v
+      
+      # 第三步：配置Arduino CLI环境
       - name: setup arduino-cli
         run: |
           ${ARDUINO_CLI_DIR}/arduino-cli --config-dir ${ARDUINO_CLI_CONFIG_DIR} config init
@@ -38,14 +45,16 @@ jobs:
           ${ARDUINO_CLI_DIR}/arduino-cli --config-dir ${ARDUINO_CLI_CONFIG_DIR} config set library.enable_unsafe_install true
           ${ARDUINO_CLI_DIR}/arduino-cli --config-dir ${ARDUINO_CLI_CONFIG_DIR} config dump
           ${ARDUINO_CLI_DIR}/arduino-cli --config-dir ${ARDUINO_CLI_CONFIG_DIR} core install esp32:esp32@${{matrix.core_version}}
+      
+      # 第四步：安装所需库
       - name: install lib lvgl@9.2.2
         run: |
           ${ARDUINO_CLI_DIR}/arduino-cli --config-dir ${ARDUINO_CLI_CONFIG_DIR} lib install "lvgl@9.2.2"
       - name: Install AI_VOX Library from GitHub
         run: |
           ${ARDUINO_CLI_DIR}/arduino-cli --config-dir ${ARDUINO_CLI_CONFIG_DIR} lib install --git-url https://github.com/nulllaborg/ai_vox
-      - name: Checkout examples repository
-        uses: actions/checkout@v4
+      
+      # 第五步：编译示例
       - name: compile
         run: |
           echo "编译位于工作空间的示例: ${GITHUB_WORKSPACE}/${{matrix.example}}"
