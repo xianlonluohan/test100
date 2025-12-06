@@ -40,7 +40,9 @@ jobs:
       - name: Install AI_VOX Library from GitHub
         run: |
           ${ARDUINO_CLI_DIR}/arduino-cli --config-dir ${ARDUINO_CLI_CONFIG_DIR} lib install --git-url https://github.com/nulllaborg/ai_vox
+      - name: Checkout examples repository
+        uses: actions/checkout@v4
       - name: compile
         run: |
-          echo "compile ${ARDUINO_USER_DIR}/libraries/${LIB_DIR_NAME}/${{matrix.example}}"
-          ${ARDUINO_CLI_DIR}/arduino-cli --config-dir ${ARDUINO_CLI_CONFIG_DIR} compile --fqbn esp32:esp32:esp32 "${ARDUINO_USER_DIR}/libraries/${LIB_DIR_NAME}/examples/${{matrix.example}}" -j 0 --warnings all --board-options PartitionScheme=huge_app --build-property "build.extra_flags=-Wall -Werror" --log --clean -v
+          echo "编译位于工作空间的示例: ${GITHUB_WORKSPACE}/${{matrix.example}}"
+          ${ARDUINO_CLI_DIR}/arduino-cli --config-dir ${ARDUINO_CLI_CONFIG_DIR} compile --fqbn esp32:esp32:esp32 "${GITHUB_WORKSPACE}/${{matrix.example}}" -j 0 --warnings all --board-options PartitionScheme=huge_app --build-property "build.extra_flags=-Wall -Werror" --log --clean -v
