@@ -55,7 +55,7 @@ jobs:
           ${ARDUINO_CLI_DIR}/arduino-cli --config-dir ${ARDUINO_CLI_CONFIG_DIR} lib install "FastLED"
       - name: install lib DHT_sensor_library
         run: |
-          ${ARDUINO_CLI_DIR}/arduino-cli --config-dir ${ARDUINO_CLI_CONFIG_DIR} lib install "DHT_sensor_library"
+          ${ARDUINO_CLI_DIR}/arduino-cli --config-dir ${ARDUINO_CLI_CONFIG_DIR} lib install "DHT sensor library"
       - name: Install AI_VOX Library from GitHub
         run: |
           ${ARDUINO_CLI_DIR}/arduino-cli --config-dir ${ARDUINO_CLI_CONFIG_DIR} lib install --git-url https://github.com/nulllaborg/ai_vox
