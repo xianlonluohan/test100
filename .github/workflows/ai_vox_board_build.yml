@@ -50,6 +50,12 @@ jobs:
       - name: install lib lvgl@9.2.2
         run: |
           ${ARDUINO_CLI_DIR}/arduino-cli --config-dir ${ARDUINO_CLI_CONFIG_DIR} lib install "lvgl@9.2.2"
+      - name: install lib FastLED
+        run: |
+          ${ARDUINO_CLI_DIR}/arduino-cli --config-dir ${ARDUINO_CLI_CONFIG_DIR} lib install "FastLED"
+      - name: install lib DHT_sensor_library
+        run: |
+          ${ARDUINO_CLI_DIR}/arduino-cli --config-dir ${ARDUINO_CLI_CONFIG_DIR} lib install "DHT_sensor_library"
       - name: Install AI_VOX Library from GitHub
         run: |
           ${ARDUINO_CLI_DIR}/arduino-cli --config-dir ${ARDUINO_CLI_CONFIG_DIR} lib install --git-url https://github.com/nulllaborg/ai_vox
