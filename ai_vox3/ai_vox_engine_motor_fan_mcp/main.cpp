@@ -508,6 +508,11 @@ uint32_t CalculateDuty(const uint16_t angle) {
 }
 
 bool SetFanSpeed(const uint8_t speed, const bool forward) {
+  if (speed < 0 || speed > 255) {
+    printf("Error: invalid motor fan speed: %" PRIu8 ", valid range: 0-255\n", speed);
+    return false;
+  }
+
   if (forward) {
     if (!ledcWriteChannel(kMotorInAChannel, speed)) {
       printf("Error: Failed to set motor INA duty.\n");

@@ -490,7 +490,6 @@ void InitMcpTools() {
                         {
                             "start_index",
                             ai_vox::ParamSchema<int64_t>{
-                                .default_value = std::nullopt,
                                 .min = 1,
                                 .max = static_cast<int64_t>(kWs2812bRgbLedNum),
                             },
