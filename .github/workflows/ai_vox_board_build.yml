@@ -61,7 +61,7 @@ jobs:
       - name: Install AI_VOX Library from GitHub (v1.3.0)
         run: |
           echo "Installing AI_VOX library version ${AI_VOX_VERSION}"
-          ${ARDUINO_CLI_DIR}/arduino-cli --config-dir ${ARDUINO_CLI_CONFIG_DIR} lib install --git-url https://github.com/nulllaborg/ai_vox.git --git-ref ${AI_VOX_VERSION}
+          ${ARDUINO_CLI_DIR}/arduino-cli --config-dir ${ARDUINO_CLI_CONFIG_DIR} lib install --git-url https://github.com/nulllaborg/ai_vox.git#${AI_VOX_VERSION}
       
       - name: Verify installed libraries
         run: |
