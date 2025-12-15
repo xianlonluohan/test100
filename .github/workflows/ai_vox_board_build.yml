@@ -17,8 +17,7 @@ jobs:
       AI_VOX_VERSION: "v1.3.0"
     strategy:
       matrix:
-        example: ["ai_vox_board/ai_vox_engine_led_mcp", "ai_vox_board/ai_vox_engine_motordriver_mcp","ai_vox_board/ai_vox_engine_servo_mcp","ai_vox_board/ai_vox_engine_ws2812b_mcp",
-                  "ai_vox3/ai_vox_engine_dht11_servo_led_mcp","ai_vox3/ai_vox_engine_led_mcp","ai_vox3/ai_vox_engine_motor_fan_mcp","ai_vox3/ai_vox_engine_motordriver_mcp",
+        example: ["ai_vox3/ai_vox_engine_dht11_servo_led_mcp","ai_vox3/ai_vox_engine_led_mcp","ai_vox3/ai_vox_engine_motor_fan_mcp","ai_vox3/ai_vox_engine_motordriver_mcp",
                   "ai_vox3/ai_vox_engine_servo_mcp","ai_vox3/ai_vox_engine_us04_dht11_photosensitive_mcp","ai_vox3/ai_vox_engine_ws2812b_mcp"]
         core_version: ["3.2.0"]
         fqbn: ["esp32:esp32:esp32s3"]
